@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Создание поста</title>
+    <title>Обновление поста</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,28 +62,31 @@
     </style>
 </head>
 <body>
-    <h1>Создание нового поста</h1>
+    <h1>Редактирование поста</h1>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="id_title">Название поста:</label>
-        <input type="text" id="id_title" name="title" required>
+        <input type="text" id="id_title" name="title" value="{{ form.title.value }}" required>
 
         <label for="id_text">Содержание поста:</label>
-        <textarea id="id_text" name="text" required></textarea>
+        <textarea id="id_text" name="text" required>{{ form.text.value }}</textarea>
 
-        <label for="id_image">Изображение:</label>
+        <label for="id_image">Изменить изображение:</label>
         <input type="file" id="id_image" name="image">
+        {% if object.image %}
+            <p>Текущее изображение: <a href="{{ object.image.url }}" target="_blank">Посмотреть</a></p>
+        {% endif %}
 
         <label for="id_cat">Категория:</label>
         <select id="id_cat" name="cat" required>
             <option value="">Выберите категорию...</option>
             {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
+                <option value="{{ category.id }}" {% if category.id == form.cat.value %}selected{% endif %}>{{ category.name }}</option>
             {% endfor %}
         </select>
 
-        <button type="submit">Создать пост</button>
+        <button type="submit">Сохранить изменения</button>
     </form>
 
 </body>

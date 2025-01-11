@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 from django. contrib. auth. mixins import LoginRequiredMixin
 
-from .models import Post
-from .forms import PostForm
+from .models import *
+from .forms import *
 
 class PostListView(ListView):
     model = Post
@@ -25,7 +25,12 @@ class UpdatePostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'bboard/update_post.html'
-    success_url = '/'
+
+    def get_success_url(self):
+        return f'/update/{self.object.id}'
+
+
+#_____________________________________________________________________
 
 
 

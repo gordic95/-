@@ -24,8 +24,8 @@ class Post(models.Model):
         return f'{self.title}'
 
     class Meta:
-        verbose_name = 'Обьяевление'
-        verbose_name_plural = 'Обьяевления'
+        verbose_name = 'Обьявление'
+        verbose_name_plural = 'Обьявления'
 
 
 class Comment(models.Model):
@@ -64,13 +64,3 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
-class EmailCode(models.Model):
-    email = models.EmailField()
-    code = models.IntegerField()
-
-    def __str__(self):
-        return f'{self.email}'
-
-    class Meta:
-        verbose_name = 'Код'
-        verbose_name_plural = 'Коды'
