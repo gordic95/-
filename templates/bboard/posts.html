@@ -3,8 +3,8 @@
 <div class="container">
     <h1>Все посты</h1>
     {% for post in posts %}
-        <p><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></p>
-        <p>{{ post.text }}</p>
+        <h2>Название: {{ post.title }}</h2>
+        <p>Описание: {{ post.text }}</p>
         <p>Автор: {{ post.author.username }}</p>
         <p>Дата публикации: {{ post.created_at }}</p>
         <hr>

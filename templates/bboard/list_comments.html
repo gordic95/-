@@ -1,0 +1,17 @@
+{% extends 'bboard/default.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Комментарии к посту: {{ comments.text }}</h1>
+    <p>{{ post.text }}</p>
+    <p>Автор: {{ post.author.username }}</p>
+    <p>Дата публикации: {{ post.created_at }}</p>
+
+    <h2>Комментарии:</h2>
+    {% for comment in post.comments.all %}
+        <p>Описание: {{ comment.text }}</p>
+        <p>Автор: {{ comment.author.username }}</p>
+        <p>Дата публикации: {{ comment.created_at }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

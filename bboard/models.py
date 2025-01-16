@@ -1,5 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+
+
+
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,9 +27,14 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    def get_absolute_url(self):
+        return f'/update/{self.id}'
+
     class Meta:
         verbose_name = 'Обьявление'
         verbose_name_plural = 'Обьявления'
+
+
 
 
 class Comment(models.Model):
@@ -41,19 +50,21 @@ class Comment(models.Model):
         verbose_name_plural = 'Комментарии'
 
 
+
 class Category(models.Model):
     cat_var = [
-        ('Tank', 'Танк'),
-        ('Healer', 'Хил'),
-        ('DD', 'ДД'),
-        ('Trader', 'Торговец'),
-        ('Guildmaster', 'Гильдмастер'),
-        ('Questgiver', 'Квестгивер'),
-        ('Blacksmith', 'Кузнец'),
-        ('Leatherworker', 'Кожевник'),
-        ('Alchemist', 'Алхимик'),
-        ('Magicmaster', 'Мастер магии'),
+        ("Танк", "Танк"),
+        ("Хил", "Хил"),
+        ("ДД", "ДД"),
+        ("Торговец", "Торговец"),
+        ("Гильдмастер", "Гильдмастер"),
+        ("Квестгивер", "Квестгивер"),
+        ("Кузнец", "Кузнец"),
+        ("Кожевник", "Кожевник"),
+        ("Алхимик", "Алхимик"),
+        ("Мастер магии", "Мастер магии")
     ]
+
     title = models.CharField(choices=cat_var, max_length=50)
 
     def __str__(self):
@@ -62,5 +73,16 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+#--------------------------------------------------
+#Уведомления по комментариям к обьявлениям
+class Notification(models.Model):
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notifications', on_delete=models.CASCADE)
+    actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    verb = models.CharField(max_length=255)
+    target = models.ForeignKey(Post, blank=True, null=True, on_delete=models.SET_NULL)
+    read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 
 

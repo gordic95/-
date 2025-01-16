@@ -152,3 +152,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 DEFAULT_FROM_EMAIL = 'irkstripman@yandex.ru'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+#____style and css_____
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]

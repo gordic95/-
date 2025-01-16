@@ -1,0 +1,10 @@
+{% extends 'bboard/default.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Пост: {{ post.title }}</h1>
+    <p>{{ post.text }}</p>
+    <p>Автор: {{ post.author.username }}</p>
+    <p>Дата публикации: {{ post.created_at }}</p>
+</div>
+{% endblock %}
